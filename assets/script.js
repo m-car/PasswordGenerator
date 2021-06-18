@@ -22,10 +22,10 @@ generateBtn.addEventListener('click', writePassword);
 
 
 function generatePassword(){
-  // var pass ;
+  pool= [] //resets password character pool 
   // Password length
   var passLength = prompt("Enter required character length:")
-  if (passLength > 8 && passLength < 128){
+  if (passLength > 8 && passLength < 128) {
     
     //Type/Case selection
     var lower = confirm("lowercase?");
@@ -34,22 +34,27 @@ function generatePassword(){
     var spec = confirm("special?");
   
     //Builds array of available characters to choose from, based on previous task. 
-    if (lower){
-      pool = pool.concat(lowerCase);
-    }if(upper){
-      pool = pool.concat(upperCase);
-    }if(num){
-      pool = pool.concat(numbers);
-    }if(spec){
-      pool = pool.concat(special);
-    }else{
-      //what happens when all are false
-    }
+    if ((lower)||(upper)||(num)||(spec)) {
+        if (lower){
+          pool = pool.concat(lowerCase);
+        }if(upper){
+          pool = pool.concat(upperCase);
+        }if(num){
+          pool = pool.concat(numbers);
+        }if(spec){
+          pool = pool.concat(special);
+        }
+          //what happens when all are false
+        }else{ 
+          alert("you need to select one!");
+          generatePassword();
+        }
+  
 
 
     // TEST CASE TO PRINT POOL ARRAY
-    var poolstring = pool.toString();
-    console.log(poolstring);
+    // var poolstring = pool.toString();
+    // console.log(poolstring);
     // console.log(pool.length);
     //TEST CASE 
 
@@ -57,18 +62,15 @@ function generatePassword(){
     var temp;
     for (var i = 0; i< passLength; i++){
       
-      //Random number in range of pool[] length
-      var index = getRandomInt(pool.length)
-      // select character in pool[], add to string 'pass'
-      temp = (pool[index]);
-      pass = pass.concat(temp);
+          //Random number in range of pool[] length
+          var index = getRandomInt(pool.length)
+          // select character in pool[], add to string 'pass'
+          temp = (pool[index]);
+          pass = pass.concat(temp);
     }
-    console.log(pass);
-    return pass;
-  }else{
-    alert("Please choose between 8 and 128 characters.");
-    generatePassword(); 
-    // TODO I NEED ANOTHER ELSE CONDITION 
+        console.log(pass);
+        return pass;
   }
+    
 }
-//TODO SPECIAL CHARACTERS NOT WORKING 
+
